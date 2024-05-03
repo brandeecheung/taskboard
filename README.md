@@ -7,7 +7,7 @@ Create a task board application using HTML, CSS, JavaScript and jQuery that allo
 
 The following animation demonstrates the application functionality:
 
-![A user adds three tasks to the task board and changes the state of two of them to in progress and then completion. The user then deletes the two cards in the done column.](./Assets/05-third-party-apis-homework-demo.gif)
+![A user adds three tasks to the task board and changes the state of two of them to in progress and then completion. The user then deletes the two cards in the done column.](./assets/05-third-party-apis-homework-demo.gif)
 
 [GitHub Repository](https://github.com/brandeecheung/taskboard)
 [TaskBoard Application Link](https://brandeecheung.github.io/taskboard/index.html)
