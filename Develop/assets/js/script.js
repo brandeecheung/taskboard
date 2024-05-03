@@ -1,3 +1,6 @@
+// do i need to add this for droppable?  printProjectData();
+
+
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 let nextId = JSON.parse(localStorage.getItem("nextId"));
@@ -71,13 +74,14 @@ function createExistingTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-    taskList.forEach(function(task){
+    taskList.forEach(function (task) {
         createExistingTaskCard(task);
     });
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+    
     // Get the task ID from the dragged element's dataset
     const taskId = ui.draggable[0].dataset.taskId;
 
@@ -85,15 +89,17 @@ function handleDrop(event, ui) {
     const newStatus = event.target.id;
 
     // Update the status of the dropped task in the task list
-    taskList.forEach(function(task) {
-        if (task.id === taskId) {
-            task.column = newStatus;
+    for (let task of taskList) {
+
+        if (task.id === parseInt(taskId)) {
+            task.status = newStatus
         }
-    });
+    }
 
     // Save the updated task list to localStorage
     localStorage.setItem('tasks', JSON.stringify(taskList));
-}
+    renderTaskList();
+ }
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event) {
@@ -111,7 +117,7 @@ function handleAddTask(event) {
             name: taskName,
             date: dueDate,
             description: description,
-            column: TODO_COL, // Assuming new tasks are added to the "To Do" column by default
+            column: TODO_COL, // New tasks are added to the "To Do" column by default
             id: generateTaskId() // Generate a unique ID for the new task
         };
 
@@ -129,7 +135,7 @@ function handleAddTask(event) {
         dateInput.value = '';
         descriptionTextArea.value = '';
 
-        // Close the modal if needed
+        // Close the modal 
         $('#formModal').modal('hide');
     } else {
         // Handle case where input fields are empty
@@ -172,13 +178,12 @@ $(document).ready(function () {
     });
 
     // Add event listeners
-    addEventListeners();
+    addEventListeners('#taskForm').on('submit', handleAddTask);
 
     // Make lanes droppable
-    $('.lane .card-body').droppable({
-        accept: '.card',
+    $('.lane').droppable({
+        accept: '.draggable',
         drop: handleDrop,
-        tolerance: 'pointer'
     });
 });
 
